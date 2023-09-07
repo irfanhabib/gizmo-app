@@ -37,11 +37,6 @@ source .env
 ```
 
 
-5. Initialize the database:
-```bash
-flask db upgrade
-```
-
 ## Running the App
 
 1. Run the app using Flask's built-in server:
