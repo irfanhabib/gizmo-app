@@ -2,11 +2,12 @@ import pytest
 from gizmo.server.app import app
 from gizmo.db.models import db, Example, ExampleCreate
 from flask_testing import TestCase
+from gizmo.config.config import TestConfig
 
 
 class AppTest(TestCase):
     def create_app(self):
-        app.config.from_object("config.TestConfig")
+        app.config.from_object(TestConfig)
         return app
 
     def setUp(self):

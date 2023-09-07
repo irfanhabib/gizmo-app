@@ -5,9 +5,10 @@ lint:
 	$(CMD) flake8 ./
 	$(CMD) black ./
 	$(CMD) isort ./
+	$(CMD) mypy ./
 
 test:
-	@(CMD) pytest
+	$(CMD) pytest
 
 up:
 	@docker-compose up -d

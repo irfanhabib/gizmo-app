@@ -1,15 +1,17 @@
 from flask_sqlalchemy import SQLAlchemy
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 db = SQLAlchemy()
 
 
 class Example(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
+    id: int = db.Column(db.Integer, primary_key=True)
+    name: str = db.Column(db.String(255), nullable=False)
 
 
 class ExampleBase(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     name: str
 
 
