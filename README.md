@@ -46,7 +46,7 @@ flask db upgrade
 
 1. Run the app using Flask's built-in server:
 ```bash
-flask run
+make run
 ```
 
 ### Using Docker (Optional)
@@ -73,33 +73,33 @@ pytest test_app.py
 
 This API has the following endpoints:
 
-- Create an example record: `POST /example`
-- Read an example record: `GET /example/<id>`
-- Update an example record: `PUT /example/<id>`
-- Delete an example record: `DELETE /example/<id>`
+- Create an example record: `POST /api/v1/example`
+- Read an example record: `GET /api/v1/example/<id>`
+- Update an example record: `PUT /api/v1/example/<id>`
+- Delete an example record: `DELETE /api/v1/example/<id>`
 
 ### Create
 
 ```bash
-curl -X POST -H "Content-Type: application/json" -d '{"name": "example"}' http://localhost:8000/example
+curl -X POST -H "Content-Type: application/json" -d '{"name": "example"}' http://localhost:8000/api/v1/example
 ```
 
 ### Read
 
 ```bash
-curl http://localhost:8000/example/1
+curl http://localhost:8000/api/v1/example/1
 ```
 
 ### Update
 
 ```bash
-curl -X PUT -H "Content-Type: application/json" -d '{"name": "updated_example"}' http://localhost:8000/example/1
+curl -X PUT -H "Content-Type: application/json" -d '{"name": "updated_example"}' http://localhost:8000/api/v1/example/1
 ```
 
 ### Delete
 
 ```bash
-curl -X DELETE http://localhost:8000/example/1
+curl -X DELETE http://localhost:8000/api/v1/example/1
 ```
 
 ## Makefile Commands

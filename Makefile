@@ -1,4 +1,4 @@
-.PHONY: lint test up down logs psql
+.PHONY: lint test up down logs psql run
 
 CMD=poetry run
 lint:
@@ -6,6 +6,9 @@ lint:
 	$(CMD) black ./
 	$(CMD) isort ./
 	$(CMD) mypy ./
+
+run:
+	$(CMD) flask run
 
 test:
 	$(CMD) pytest
