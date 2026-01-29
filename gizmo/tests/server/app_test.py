@@ -1,3 +1,5 @@
+import os
+os.environ["DATABASE_URL"] = "sqlite:///:memory:"
 import pytest
 from gizmo.server.app import app
 from gizmo.db.models import db, Example, ExampleCreate
@@ -8,6 +10,7 @@ from gizmo.config.config import TestConfig
 class AppTest(TestCase):
     def create_app(self):
         app.config.from_object(TestConfig)
+        app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///:memory:"
         return app
 
     def setUp(self):
@@ -52,3 +55,26 @@ class AppTest(TestCase):
         data = response.get_json()
         assert response.status_code == 200
         assert data["message"] == "Deleted successfully"
+
+    def test_get_ai_course_without_course_id(self):
+        response = self.client.post("/api/get_ai_course", json={
+            "user_id": "123",
+            "utc_offset_minutes": 0,
+            "device_type": "MOBILE",
+            "os": "APPLE"
+        })
+        assert response.status_code == 200
+        data = response.get_json()
+        assert data["course_id"] is None
+
+    def test_get_ai_course_with_course_id(self):
+        response = self.client.post("/api/get_ai_course", json={
+            "user_id": "123",
+            "utc_offset_minutes": 0,
+            "device_type": "MOBILE",
+            "os": "APPLE",
+            "course_id": "course_123"
+        })
+        assert response.status_code == 200
+        data = response.get_json()
+        assert data["course_id"] == "course_123"

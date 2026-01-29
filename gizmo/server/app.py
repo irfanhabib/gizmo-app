@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from gizmo.db.models import db, Example, ExampleCreate, ExampleRead, ExampleUpdate
+from gizmo.db.models import db, Example, ExampleCreate, ExampleRead, ExampleUpdate, GetAICourseRequest
 import os
 from gizmo.config.config import Config
 from flask_pydantic import validate
@@ -48,3 +48,13 @@ def delete_example(id):
     db.session.delete(example)
     db.session.commit()
     return jsonify({"message": "Deleted successfully"}), 200
+
+
+@app.route("/api/get_ai_course", methods=["POST"])
+@validate()
+def get_ai_course(body: GetAICourseRequest):
+    return jsonify({
+        "status": "success",
+        "course_id": body.course_id,
+        "user_id": body.user_id
+    })
